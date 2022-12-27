@@ -1,11 +1,11 @@
 class RegistrationsController < ApplicationController
   def new
-    @account = Account.new
+    @account = Account.new(account_params)
   end
 
   def create
     @account = Account.new(account_params)
-    redirect_to signup_success_path
+
     if @account.save
       redirect_to signup_success_path
     else
@@ -19,5 +19,7 @@ class RegistrationsController < ApplicationController
     params.require(:account).permit(
       :account_type, :name, :company_number, :date_of_birth, :email, :password
     )
+  rescue
+    {}
   end
 end
